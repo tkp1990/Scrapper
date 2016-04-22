@@ -11,7 +11,7 @@ import play.api.libs.json._
 /**
  * Created by kenneththomas on 4/22/16.
  */
-class App{
+object App{
 
   implicit val idReads: Reads[ObjectId] = new Reads[ObjectId] {
     override def reads(json: JsValue): JsResult[Imports.ObjectId] = {
@@ -29,7 +29,7 @@ class App{
     }
   }
 
-  def main(args: Array[String]) {
+  def main(args: Array[String]) = {
     getData(0)
   }
 
@@ -42,7 +42,7 @@ class App{
       println(" Count: "+skip)
       val mongoClient = MongoConfig.getMongoClient("localhost", 27017)
       try {
-        val collection = MongoConfig.getCollection("datacleaning", "ZPmainCollection", mongoClient)
+        val collection = MongoConfig.getCollection(CA_DB, COMPANY_DATA, mongoClient)
         if(skip == c) {
           val data = collection.find().skip(skip).limit(limit).sort(orderBy)
           skip = skip + limit

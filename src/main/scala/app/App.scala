@@ -30,7 +30,7 @@ class App{
   }
 
   def main(args: Array[String]) {
-
+    getData(0)
   }
 
   def getData(s: Integer) = {

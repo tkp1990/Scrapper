@@ -15,9 +15,9 @@ object App{
 
   implicit val idReads: Reads[ObjectId] = new Reads[ObjectId] {
     override def reads(json: JsValue): JsResult[Imports.ObjectId] = {
-      json.asOpt[String] map { str =>
-        if (org.bson.types.ObjectId.isValid(str))
-          JsSuccess(new ObjectId(str))
+      json.asOpt[ObjectId] map { str =>
+        if (str.isInstanceOf[ObjectId])
+          JsSuccess(str)
         else
           JsError("Invalid ObjectId %s".format(str))
       } getOrElse (JsError("Value is not an ObjectId"))
